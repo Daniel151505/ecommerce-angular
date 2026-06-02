@@ -2,6 +2,12 @@
 
 Proyecto frontend Angular construido como solución para el challenge técnico de ecommerce farmacéutico.
 
+## Link de la aplicacion
+https://ecommerce-angular-24ycizw65-daniel151505s-projects.vercel.app/categoria/todos
+
+## Link del storybook
+https://ecommerce-angular-jdlj.vercel.app/
+
 ## Descripción del proyecto
 
 Esta aplicación implementa un flujo mínimo de ecommerce con:
