@@ -1,0 +1,32 @@
+<div class="w-full grid gap-4 lg:grid-cols-[96px_minmax(0,1fr)] items-start">
+  @if (thumbnails.length > 0) {
+    <div class="flex flex-row lg:flex-col gap-3 max-w-full lg:max-w-none lg:max-h-[444px] overflow-x-auto lg:overflow-x-hidden lg:overflow-y-auto pb-2 lg:pb-0 lg:pr-2 overscroll-contain [scrollbar-width:thin]">
+      @for (thumb of thumbnails; track thumb) {
+        <button
+          type="button"
+          (click)="setActiveImage(thumb)"
+          class="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1 bg-white cursor-pointer transition overflow-hidden shadow-sm flex-shrink-0"
+          [class.border-blue-500]="activeImage === thumb"
+          [class.border-gray-200/60]="activeImage !== thumb"
+          [class.hover:border-gray-300]="activeImage !== thumb"
+        >
+          <img [src]="thumb" class="max-h-full max-w-full object-contain" (error)="onImgError($event)" />
+        </button>
+      }
+    </div>
+  }
+
+  <div class="relative w-full rounded-[28px] bg-white border border-gray-100 p-4 flex items-center justify-center overflow-hidden shadow-sm">
+    <img
+      [src]="activeImage"
+      class="w-full h-auto max-h-[420px] md:max-h-[640px] object-contain"
+      (error)="onImgError($event)"
+    />
+
+    @if (isSoldOut) {
+      <span class="absolute inset-0 bg-white/70 backdrop-blur-[1px] flex items-center justify-center text-xs font-black text-red-600 border-2 border-red-500 uppercase rounded-lg tracking-widest max-w-[120px] max-h-[36px] m-auto rotate-[-8deg] shadow-md">
+        Agotado
+      </span>
+    }
+  </div>
+</div>

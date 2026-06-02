@@ -1,0 +1,11 @@
+<nav class="max-w-7xl mx-auto px-4 py-4 text-xs text-gray-500 flex flex-wrap items-center gap-1.5 select-none text-left">
+  <a routerLink="/categoria/todos" class="hover:text-[#009639] transition font-medium">Inicio</a>
+  <svg class="w-3 h-3 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+
+  @if (category) {
+    <a [routerLink]="categoryLink || '/categoria/todos'" class="hover:text-[#009639] transition font-medium text-sm text-gray-600">{{ category }}</a>
+    <svg class="w-3 h-3 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+  }
+
+  <span class="font-semibold text-gray-800 truncate max-w-[240px]">{{ title }}</span>
+</nav>

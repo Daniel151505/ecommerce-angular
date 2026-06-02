@@ -1,0 +1,9 @@
+<app-header (toggleCart)="cartDrawer.toggle()"></app-header>
+
+<main class="min-h-screen bg-[#f8f9fa] pb-12">
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer>
+
+<app-cart-drawer #cartDrawer></app-cart-drawer>

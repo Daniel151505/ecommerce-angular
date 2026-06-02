@@ -1,0 +1,23 @@
+<section class="space-y-6">
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+    <h3 class="text-base font-extrabold text-gray-800 uppercase tracking-wider flex items-center gap-1.5 text-left">
+      <span class="w-1.5 h-4 bg-[#009639] rounded"></span>
+      Lo más buscado
+      <a routerLink="/categoria/todos" class="text-xs text-[#009639] hover:underline font-bold ml-2 lowercase first-letter:uppercase">mostrar más</a>
+    </h3>
+    <div class="flex gap-1.5">
+      <button class="w-7 h-7 rounded-full border border-gray-200 hover:bg-gray-50 flex items-center justify-center text-gray-500 hover:text-gray-700 transition shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="w-7 h-7 rounded-full border border-gray-200 hover:bg-gray-50 flex items-center justify-center text-gray-500 hover:text-gray-700 transition shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    @for (p of products; track p.id) {
+      <app-product-card [product]="p"></app-product-card>
+    }
+  </div>
+</section>

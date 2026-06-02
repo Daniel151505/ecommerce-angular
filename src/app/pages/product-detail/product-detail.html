@@ -1,0 +1,34 @@
+@if (isLoading()) {
+  <div class="max-w-7xl mx-auto px-4 py-20 text-center flex flex-col items-center justify-center">
+    <div
+      class="w-12 h-12 rounded-full border-4 border-gray-200 border-t-[#009639] animate-spin mb-4"
+    ></div>
+    <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">Cargando producto...</p>
+  </div>
+}
+
+@if (!isLoading() && product()) {
+  <div class="max-w-7xl mx-auto px-4 py-4 space-y-8">
+    <app-breadcrumbs [category]="productCategoryLabel()" [categoryLink]="productCategoryRoute()" [title]="product()?.name"></app-breadcrumbs>
+
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white p-6 md:p-8 rounded-3xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100 items-start"
+    >
+      <app-product-detail-gallery
+        class="lg:col-span-7 w-full"
+        [thumbnails]="thumbnails()"
+        [activeImage]="activeImage()"
+        [isSoldOut]="isSoldOut()"
+        (activeImageChange)="setActiveImage($event)"
+        (imgError)="onImgError($event)"
+      ></app-product-detail-gallery>
+
+      <product-info class="lg:col-span-5 w-full" [product]="product()" [activeImage]="activeImage()" (imgError)="onImgError($event)"></product-info>
+
+    </div>
+
+    <product-detail-accordions [details]="details()"></product-detail-accordions>
+
+    <product-most-searched [currentId]="product()?.id" [limit]="4"></product-most-searched>
+  </div>
+}

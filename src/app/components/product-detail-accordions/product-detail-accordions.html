@@ -1,0 +1,32 @@
+<section id="details-section" class="bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-gray-100/90 overflow-hidden text-left max-w-7xl mx-auto my-6">
+  <div class="divide-y divide-gray-100">
+    @for (detail of details; track detail.key) {
+      <div class="w-full">
+        <button
+          (click)="toggleAccordion(detail.key)"
+          class="w-full py-5 px-6 flex justify-between items-center transition bg-white hover:bg-gray-50/40 cursor-pointer select-none text-left"
+        >
+          <span class="text-sm font-bold text-[#1d2d50] tracking-tight">{{ detail.title }}</span>
+
+          <svg
+            class="w-4 h-4 text-[#1d2d50] transition-transform duration-200 shrink-0"
+            [class.rotate-180]="openAccordions().includes(detail.key)"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        @if (openAccordions().includes(detail.key)) {
+          <div
+            class="px-6 pb-6 pt-1 text-xs text-[#597099] font-medium leading-relaxed bg-white border-t border-transparent accordion-content-box animate-fade-in"
+            [innerHTML]="getSafeHtml(detail.content)"
+          ></div>
+        }
+      </div>
+    }
+  </div>
+</section>

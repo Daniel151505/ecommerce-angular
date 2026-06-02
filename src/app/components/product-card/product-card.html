@@ -1,0 +1,131 @@
+<div class="product-card">
+
+  <div class="card-img-area">
+    <div class="card-header">
+      <div class="qty-badge-group">
+        <div class="qty-badge-left">
+          <span class="qty-number">{{ product.quantityUnitsCore || product.quantityUnits || 80 }}</span>
+          <span class="qty-label">unidades</span>
+        </div>
+        <div class="qty-badge-right">
+          <span class="qty-name">{{ product.noFractionatedText || product.presentation || 'Toallitas húmedas' }}</span>
+          <span class="qty-seg">{{ product.segment || product.familyType || 'Cuidado 4 en 1' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <a [routerLink]="['/producto', product.id]" [queryParamsHandling]="'merge'" [queryParams]="fromCategory ? { fromCategory: fromCategory } : {}" class="card-img-wrap">
+      <img
+        [src]="product.imageList[0]?.url || 'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/136049X.jpg'"
+        [alt]="product.name"
+        class="card-img"
+        loading="lazy"
+        (error)="onImgError($event)"
+      />
+      @if (isSoldOut) {
+        <span class="sold-out-badge">Agotado</span>
+      }
+    </a>
+
+    <div *ngIf="hasDiscounts" class="promo-sticker-red">
+      <span class="promo-llevese">LLÉVATE</span>
+      <div class="promo-el2do-outline">
+        <span class="promo-el2do">EL 2DO</span>
+      </div>
+      <span class="promo-mitad">A MITAD</span>
+      <span class="promo-precio">DE PRECIO</span>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <span class="pres-label">
+      {{ product.presentation || 'BOLSA' }} {{ product.quantityUnitsCore || product.quantityUnits || 80 }} UN
+    </span>
+
+    <a [routerLink]="['/producto', product.id]" [queryParamsHandling]="'merge'" [queryParams]="fromCategory ? { fromCategory: fromCategory } : {}" class="card-name">
+      {{ product.name }}
+    </a>
+
+    <div class="tags-row">
+      @if (product.ranking !== null && product.ranking < 20) {
+        <span class="tag tag-blue">
+            <img src="/assets/tag.svg" class="tag-icon"  />
+          Te puede interesar
+        </span>
+      }
+      @if (product.isGeneric) {
+        <span class="tag tag-gray">
+          <svg class="tag-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.896 2.054a1 1 0 00-1.792 0L6.72 6.647 2.054 9.104a1 1 0 000 1.792l4.666 2.457 2.384 4.593a1 1 0 001.792 0l2.457-4.666 4.593-2.384a1 1 0 000-1.792l-4.666-2.457-2.384-4.593z" clip-rule="evenodd"/>
+          </svg>
+          Genérico
+        </span>
+      } @else {
+        <span class="tag tag-gray">
+          <img src="/assets/inkafarma-tag.svg" class="tag-icon" />
+          Inkafarma
+        </span>
+      }
+    </div>
+
+    <div class="prices-block">
+      <div class="price-row price-regular">
+        <span class="price-val line-through">S/ {{ product.price | number:'1.2-2' }}</span>
+      </div>
+
+      <div class="price-row price-online">
+        <div class="price-right">
+          <span class="price-val-online">S/ {{ onlinePrice | number:'1.2-2' }}</span>
+          @if (hasDiscounts) {
+            <span class="discount-badge badge-black">-{{ discountPercent }}%</span>
+          }
+        </div>
+      </div>
+
+      <div class="price-row price-exclusive">
+        <div class="price-right">
+          <span class="price-val-excl">S/ {{ exclusivePrice | number:'1.2-2' }}</span>
+          <span class="sap-badge badge-black">sip</span>
+          <span class="sap-badge badge-blue">sip</span>
+          <span class="discount-badge badge-blue">-20%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-footer">
+    @if (isSoldOut) {
+      <button class="btn-agotado" disabled>Agotado temporalmente</button>
+    } @else if (!isInCart()) {
+      <button class="btn-agregar" (click)="addToCart($event)">Agregar al carrito</button>
+    } @else {
+      <div class="qty-stepper" (click)="$event.stopPropagation()">
+        <button class="step-btn" (click)="decreaseQty($event)">
+          @if (cartQty() === 1) {
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          } @else {
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
+          }
+        </button>
+        <span class="step-qty">{{ cartQty() }}</span>
+        <button class="step-btn" (click)="increaseQty($event)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        </button>
+      </div>
+    }
+
+    <button
+      class="btn-heart"
+      (click)="toggleFav($event)"
+      [class.active]="isFav()"
+      title="Favorito"
+    >
+      <svg class="w-5 h-5" [attr.fill]="isFav() ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+      </svg>
+    </button>
+  </div>
+
+</div>

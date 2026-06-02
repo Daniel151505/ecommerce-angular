@@ -1,0 +1,141 @@
+<div class="bg-gradient-to-r from-green-600 to-blue-500 text-white text-xs py-2 text-center">
+  Es un hecho establecido hace demasiado tiempo que un lector.
+</div>
+
+<header class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 py-3">
+    <div class="flex items-center justify-between gap-3">
+
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          (click)="toggleMenu()"
+          class="sm:hidden p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition"
+          aria-label="Abrir menú"
+          [attr.aria-expanded]="isMenuOpen()"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <a routerLink="/categoria/todos" class="inline-block">
+          <img
+            src="assets/logo-inkafarma.svg"
+            alt="Inkafarma"
+            style="max-width:150px; width:100%; height:auto;"
+            class="h-8 sm:h-auto object-contain cursor-pointer"
+          />
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a routerLink="/favoritos"
+          class="relative text-gray-500 hover:text-green-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+
+          @if (favCount() > 0) {
+            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+              {{ favCount() }}
+            </span>
+          }
+        </a>
+
+        <button (click)="toggleCart.emit()"
+          class="relative flex items-center gap-2 bg-[#e6eef5] px-3 py-2 rounded-xl">
+          <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5"/>
+          </svg>
+          <span class="text-blue-600 font-semibold text-sm">
+            {{ cartCount() }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <form (submit)="onSearch($event)" class="relative">
+        <input
+          type="text"
+          [value]="searchQuery"
+          (input)="onSearchInput($event)"
+          placeholder="Busca una marca o producto"
+          class="w-full bg-gray-100 text-gray-500 text-sm pl-5 pr-16 py-3 rounded-full focus:outline-none"
+        />
+
+        <button
+          type="submit"
+          class="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 bg-green-600 hover:bg-green-700 text-white rounded-full flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    @if (isMenuOpen()) {
+      <div class="fixed inset-0 z-50 flex sm:hidden">
+        <aside class="w-72 max-w-[80vw] h-full bg-white shadow-2xl p-6 overflow-y-auto">
+          <div class="flex items-center justify-between mb-6">
+            <span class="font-extrabold text-sm uppercase tracking-wider text-gray-800">Categorías</span>
+            <button type="button" (click)="closeMenu()" class="text-gray-500 hover:text-gray-800 p-2 rounded-full transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <nav class="space-y-3 text-sm text-gray-700">
+            <a routerLink="/categoria/todos" (click)="closeMenu()" class="block rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Todos</a>
+            <a routerLink="/categoria/dermocosmetica" (click)="closeMenu()" class="block rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Dermocosmética</a>
+            <a routerLink="/categoria/farmacia" (click)="closeMenu()" class="block rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Farmacia</a>
+            <a routerLink="/categoria/mama-y-bebe" (click)="closeMenu()" class="block rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Mama y Bebe</a>
+            <button type="button" (click)="closeMenu()" class="w-full text-left rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Bienestar</button>
+            <button type="button" (click)="closeMenu()" class="w-full text-left rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Infantil</button>
+            <button type="button" (click)="closeMenu()" class="w-full text-left rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Fotoprotección</button>
+            <button type="button" (click)="closeMenu()" class="w-full text-left rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Inkaclub</button>
+            <button type="button" (click)="closeMenu()" class="w-full text-left rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Tienda 24 hrs.</button>
+            <button type="button" (click)="closeMenu()" class="w-full text-left rounded-2xl px-3 py-3 hover:bg-gray-50 hover:text-green-600">Catálogo</button>
+          </nav>
+        </aside>
+        <div class="flex-1 bg-black/40 backdrop-blur-sm" (click)="closeMenu()"></div>
+      </div>
+    }
+  </div>
+</header>
+
+<div class="bg-white hidden sm:block">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap gap-4 text-sm text-gray-600">
+    <a
+      routerLink="/categoria/todos"
+      [class.text-green-600]="productService.selectedCategory() === 'all'"
+      [class.font-semibold]="productService.selectedCategory() === 'all'"
+      class="hover:text-green-600 cursor-pointer no-underline text-gray-600">Todos</a>
+    <a
+      routerLink="/categoria/dermocosmetica"
+      [class.text-green-600]="productService.selectedCategory() === 'dermocosmetica'"
+      [class.font-semibold]="productService.selectedCategory() === 'dermocosmetica'"
+      class="hover:text-green-600 cursor-pointer no-underline text-gray-600">Dermocosmética</a>
+    <a
+      routerLink="/categoria/farmacia"
+      [class.text-green-600]="productService.selectedCategory() === 'farmacia'"
+      [class.font-semibold]="productService.selectedCategory() === 'farmacia'"
+      class="hover:text-green-600 cursor-pointer no-underline text-gray-600">Farmacia</a>
+    <a
+      routerLink="/categoria/mama-y-bebe"
+      [class.text-green-600]="productService.selectedCategory() === 'mama-y-bebe'"
+      [class.font-semibold]="productService.selectedCategory() === 'mama-y-bebe'"
+      class="hover:text-green-600 cursor-pointer no-underline text-gray-600">Mama y Bebe</a>
+    <span class="hover:text-green-600 cursor-pointer">Bienestar</span>
+    <span class="hover:text-green-600 cursor-pointer">Infantil</span>
+    <span class="hover:text-green-600 cursor-pointer">Fotoprotección</span>
+    <span class="hover:text-green-600 cursor-pointer">Inkaclub</span>
+    <span class="hover:text-green-600 cursor-pointer">Tienda 24 hrs.</span>
+    <span class="hover:text-green-600 cursor-pointer">Catálogo</span>
+  </div>
+</div>

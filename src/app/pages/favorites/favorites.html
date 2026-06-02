@@ -1,0 +1,113 @@
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+  <nav class="text-xs text-gray-500 flex items-center gap-1.5 select-none mb-6 text-left">
+    <a routerLink="/categoria/todos" class="hover:text-[#009639] transition font-medium">Inicio</a>
+    <svg class="w-3 h-3 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+    <span class="font-bold text-gray-800">Mis favoritos</span>
+  </nav>
+
+  <div class="flex items-center gap-2 mb-8 bg-gray-100/50 p-1.5 rounded-2xl w-fit">
+    <a
+      routerLink="/carrito"
+      class="text-gray-500 hover:text-gray-800 font-extrabold text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 transition cursor-pointer"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      <span>Mi carrito</span>
+    </a>
+
+    <div class="bg-sky-50 text-sky-600 font-extrabold text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 border border-sky-100 shadow-sm cursor-pointer">
+      <svg class="w-4 h-4" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      <span>Mis favoritos</span>
+    </div>
+  </div>
+
+  @if (favoriteProducts().length === 0) {
+    <div class="bg-white py-20 px-4 rounded-3xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
+      <div class="w-20 h-20 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 mb-6 text-gray-300">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      </div>
+      <h3 class="font-extrabold text-sm text-gray-700 uppercase tracking-wider mb-2">No tienes productos favoritos</h3>
+      <p class="text-xs text-gray-400 max-w-sm mb-6">Guarda tus productos preferidos para encontrarlos rápido cuando quieras comprarlos.</p>
+      <a routerLink="/categoria/todos" class="px-8 py-3 rounded-full bg-[#009639] hover:bg-[#007f30] text-white text-xs font-bold uppercase transition shadow hover:shadow-md">
+        Ir al catálogo
+      </a>
+    </div>
+  } @else {
+    <div class="space-y-4 text-left">
+      <h4 class="font-extrabold text-base text-gray-800 mb-2">Inkafarma ({{ favoriteProducts().length }})</h4>
+
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="hidden sm:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50/50 border-b border-gray-100 text-[10px] font-black text-gray-400 uppercase tracking-wider">
+          <div class="col-span-6">Productos</div>
+          <div class="col-span-2">Presentación</div>
+          <div class="col-span-2 text-right">Precio</div>
+          <div class="col-span-2 text-right">Acciones</div>
+        </div>
+
+        <div class="divide-y divide-gray-100">
+          @for (product of favoriteProducts(); track product.id) {
+            <div class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center relative transition hover:bg-gray-50/30">
+              <div class="col-span-6 flex items-center gap-4 min-w-0">
+                <button
+                  (click)="removeFavorite(product)"
+                  class="w-8 h-8 rounded-full border border-red-200 bg-red-50/50 text-red-500 flex items-center justify-center transition shrink-0 shadow-sm hover:bg-red-100"
+                  aria-label="Quitar de favoritos"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                </button>
+
+                <div class="w-16 h-16 shrink-0 border border-gray-100 rounded-xl flex items-center justify-center p-1.5 bg-white overflow-hidden shadow-sm">
+                  <img
+                    [src]="product.imageList[0]?.url || 'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/136049X.jpg'"
+                    [alt]="product.name"
+                    class="max-h-full max-w-full object-contain"
+                    (error)="onImgError($event)"
+                  />
+                </div>
+
+                <div class="flex-grow min-w-0">
+                  <a [routerLink]="['/producto', product.id]" class="font-bold text-xs text-gray-800 hover:text-[#009639] transition line-clamp-2 leading-snug">
+                    {{ product.name }}
+                  </a>
+                  <span class="text-[9px] font-black text-gray-400 uppercase tracking-wide block mt-1">
+                    {{ getPresentationName(product) }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-span-2 text-xs">
+                <span class="block sm:hidden text-[10px] font-bold text-gray-400 uppercase mb-1">Presentación:</span>
+                <span class="inline-flex w-full bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 px-2.5 py-2">
+                  {{ product.presentation }}
+                </span>
+              </div>
+
+              <div class="col-span-2 text-right text-xs flex sm:block items-center justify-between gap-3">
+                <span class="block sm:hidden text-[10px] font-bold text-gray-400 uppercase">Precio:</span>
+                <span class="font-black text-gray-800">S/ {{ getProductPrice(product) | number:'1.2-2' }}</span>
+              </div>
+
+              <div class="col-span-2 flex sm:justify-end">
+                @if (isInCart(product)) {
+                  <a
+                    routerLink="/carrito"
+                    class="w-full sm:w-auto text-center px-5 py-2.5 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 font-black text-[10px] uppercase tracking-wider transition hover:bg-sky-100"
+                  >
+                    Ver carrito
+                  </a>
+                } @else {
+                  <button
+                    (click)="addToCart(product)"
+                    class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#009639] hover:bg-[#007f30] text-white font-black text-[10px] uppercase tracking-wider transition shadow hover:shadow-md"
+                  >
+                    Agregar
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

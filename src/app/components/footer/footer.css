@@ -1,0 +1,244 @@
+.site-footer {
+  margin-top: auto;
+  background: #ffffff;
+  color: #536175;
+  border-top: 1px solid #f1f3f6;
+  font-family: inherit;
+}
+
+.footer-content {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 40px 26px 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr)) minmax(300px, 0.95fr);
+  column-gap: clamp(36px, 7vw, 118px);
+  row-gap: 34px;
+}
+
+.footer-column,
+.footer-actions,
+.action-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-column {
+  gap: 20px;
+}
+
+.footer-column h3,
+.action-block h3 {
+  margin: 0;
+  color: #15223a;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.footer-column a {
+  width: fit-content;
+  color: #536175;
+  font-size: 16px;
+  line-height: 1.1;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.footer-column a:hover,
+.footer-column a:focus-visible {
+  color: #009b4e;
+}
+
+.footer-actions {
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.action-block {
+  gap: 16px;
+}
+
+.social-links,
+.store-links {
+  display: flex;
+  align-items: center;
+}
+
+.social-links {
+  gap: 10px;
+}
+
+.social-link {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #08a756;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  background: #008f49;
+  transform: translateY(-1px);
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.claims-book {
+  width: 102px;
+  min-height: 56px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #70a9c4;
+  background: #ffffff;
+  border: 1px solid #e7ebf1;
+  border-radius: 11px;
+  box-shadow: 0 1px 3px rgba(18, 34, 58, 0.08);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.claims-book span {
+  color: #5aa6c8;
+  font-size: 9px;
+  line-height: 0.92;
+  font-weight: 800;
+  text-align: center;
+}
+
+.claims-book svg {
+  width: 58px;
+  height: 24px;
+  color: #98a1ae;
+}
+
+.store-links {
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.store-link {
+  min-width: 158px;
+  height: 50px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #14213a;
+  background: #ffffff;
+  border: 2px solid #14213a;
+  border-radius: 24px;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.store-link:hover,
+.store-link:focus-visible {
+  color: #008f49;
+  border-color: #008f49;
+  transform: translateY(-1px);
+}
+
+.store-link svg {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  fill: currentColor;
+}
+
+.store-link .google-icon {
+  fill: none;
+}
+
+.footer-bottom {
+  padding: 18px 20px;
+  color: #687386;
+  background: #f6f6f7;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+  }
+
+  .footer-actions {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    align-items: start;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 34px 20px 26px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  .footer-actions {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .store-links {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    padding: 30px 18px 24px;
+  }
+
+  .footer-column {
+    gap: 16px;
+  }
+
+  .footer-column h3,
+  .action-block h3 {
+    font-size: 16px;
+  }
+
+  .footer-column a {
+    font-size: 15px;
+  }
+
+  .store-links {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .store-link {
+    width: min(100%, 240px);
+  }
+
+  .footer-bottom {
+    padding: 16px 18px;
+    font-size: 14px;
+  }
+}

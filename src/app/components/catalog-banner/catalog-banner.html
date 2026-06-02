@@ -1,0 +1,15 @@
+<div class="relative bg-gray-900 text-white py-16 px-6 overflow-hidden shadow-lg">
+  <div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-multiply" [style.backgroundImage]="'url(' + image + ')'">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-r" [style.background]="'linear-gradient(to right, ' + colorFrom + 'e6, transparent)'">
+  </div>
+
+  <div class="max-w-7xl mx-auto text-center relative z-10 space-y-2 flex flex-col items-center justify-center">
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight uppercase drop-shadow-md">
+      {{ title }}
+    </h1>
+    <p class="text-xs text-gray-200 max-w-xl mx-auto leading-relaxed font-medium">
+      {{ description }}
+    </p>
+  </div>
+</div>
