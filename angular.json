@@ -75,7 +75,7 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "configDir": ".storybook",
-            "browserTarget": "ecommerce-angular:build",
+            "buildTarget": "ecommerce-angular:build",
             "compodoc": true,
             "compodocArgs": [
               "-e",
@@ -93,7 +93,7 @@
           "builder": "@storybook/angular:build-storybook",
           "options": {
             "configDir": ".storybook",
-            "browserTarget": "ecommerce-angular:build",
+            "buildTarget": "ecommerce-angular:build",
             "compodoc": true,
             "compodocArgs": [
               "-e",
@@ -101,7 +101,7 @@
               "-d",
               "."
             ],
-            "outputDir": "storybook-static",
+            "outputPath": "storybook-static",
             "styles": [
               "src/styles.css"
             ]
