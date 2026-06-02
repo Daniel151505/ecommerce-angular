@@ -157,7 +157,3 @@ npm test
 - `npm run build`
 - `npm run storybook`
 - `npm test`
-
----
-
-Este README ahora describe la solución construida, cómo ejecutarla, su arquitectura y responde las preguntas del challenge técnico.
