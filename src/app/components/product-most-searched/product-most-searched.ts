@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { ProductCardComponent } from '../product-card/product-card';
 import { Product } from '../../data/products-data';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'product-most-searched',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent],
+  imports: [CommonModule, ProductCardComponent, RouterLink],
   templateUrl: './product-most-searched.html'
 })
 export class ProductMostSearchedComponent {

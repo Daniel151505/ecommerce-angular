@@ -1,6 +1,6 @@
 <div class="lg:col-span-5 text-left space-y-6 lg:pl-8">
   <div class="space-y-1">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between text-[10px] font-bold text-gray-400 uppercase tracking-wider font-sans gap-2">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between text-[10px] font-bold text-gray-500 uppercase tracking-wider font-sans gap-2">
       <span>{{ selectedPresentation() === 'pack' ? (product?.presentation + ' ' + (product?.quantityUnitsCore || 1) + ' UN') : 'SOBRE 1 UN' }}</span>
       <span>SKU {{ product?.id }}</span>
     </div>
@@ -13,7 +13,7 @@
   <div class="space-y-3.5 py-4 border-t border-b border-gray-100">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs gap-2">
       <span class="text-gray-500 font-semibold">Precio regular</span>
-      <span class="text-gray-400 font-bold line-through text-right">
+      <span class="text-gray-500 font-bold line-through text-right">
         S/ {{ (selectedPresentation() === 'pack' ? product?.price : product?.fractionatedPrice) | number:'1.2-2' }}
       </span>
     </div>
@@ -69,7 +69,7 @@
             </div>
             <div>
               <span class="block font-bold text-xs text-[#1d2d50] capitalize">{{ product?.fractionatedForm || 'Sobre' }}</span>
-              <span class="text-[10px] text-gray-400 font-medium block">Desde S/ {{ product?.fractionatedPrice | number:'1.2-2' }}</span>
+              <span class="text-[10px] text-gray-500 font-medium block">Desde S/ {{ product?.fractionatedPrice | number:'1.2-2' }}</span>
             </div>
           </div>
           <div class="w-4 h-4 rounded-full border flex items-center justify-center shrink-0" [class.border-blue-500]="selectedPresentation() === 'blister'" [class.bg-blue-500]="selectedPresentation() === 'blister'" [class.border-gray-300]="selectedPresentation() !== 'blister'">
@@ -87,7 +87,7 @@
           </div>
           <div>
             <span class="block font-bold text-xs text-[#1d2d50] capitalize">{{ product?.presentation || 'Caja' }}</span>
-            <span class="text-[10px] text-gray-400 font-medium block">Desde S/ {{ product?.price | number:'1.2-2' }}</span>
+            <span class="text-[10px] text-gray-500 font-medium block">Desde S/ {{ product?.price | number:'1.2-2' }}</span>
           </div>
         </div>
         <div class="w-4 h-4 rounded-full border flex items-center justify-center shrink-0" [class.border-blue-500]="selectedPresentation() === 'pack'" [class.bg-blue-500]="selectedPresentation() === 'pack'" [class.border-gray-300]="selectedPresentation() !== 'pack'">
@@ -102,7 +102,7 @@
   <div class="flex flex-col sm:flex-row gap-4 items-stretch pt-2">
     <div class="flex-1">
       @if (isSoldOut()) {
-        <button disabled class="w-full py-3.5 rounded-full bg-gray-100 text-gray-400 font-extrabold uppercase text-xs cursor-not-allowed border border-gray-200 flex items-center justify-center gap-2">Agotado Temporalmente</button>
+        <button disabled class="w-full py-3.5 rounded-full bg-gray-100 text-gray-500 font-extrabold uppercase text-xs cursor-not-allowed border border-gray-200 flex items-center justify-center gap-2">Agotado Temporalmente</button>
       }
       @if (!isSoldOut()) {
         @if (!isInCart()) {
@@ -110,7 +110,7 @@
         }
         @if (isInCart()) {
           <div class="flex items-center justify-between sm:justify-between bg-gray-50 border border-gray-200 rounded-full overflow-hidden p-1 shadow-inner w-full gap-2 flex-wrap">
-            <button (click)="decreaseQty()" class="w-8 h-8 rounded-full bg-white hover:bg-red-50 text-gray-500 hover:text-red-600 flex items-center justify-center border border-gray-200 transition shadow-sm">
+            <button (click)="decreaseQty()" class="w-8 h-8 rounded-full bg-white hover:bg-red-50 text-gray-500 hover:text-red-600 flex items-center justify-center border border-gray-200 transition shadow-sm" aria-label="Disminuir cantidad">
               @if (cartQty() === 1) {
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               } @else {
@@ -118,7 +118,7 @@
               }
             </button>
             <span class="font-black text-xs text-[#1d2d50] px-2 select-none truncate">{{ cartQty() }} en carrito</span>
-            <button (click)="increaseQty()" class="w-8 h-8 rounded-full bg-white hover:bg-green-50 text-gray-500 hover:text-[#009639] flex items-center justify-center border border-gray-100 shadow-sm transition">
+            <button (click)="increaseQty()" class="w-8 h-8 rounded-full bg-white hover:bg-green-50 text-gray-500 hover:text-[#009639] flex items-center justify-center border border-gray-100 shadow-sm transition" aria-label="Aumentar cantidad">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             </button>
           </div>
@@ -126,7 +126,7 @@
       }
     </div>
 
-    <button (click)="toggleFav()" class="w-12 h-12 rounded-full border flex items-center justify-center transition shadow-sm shrink-0 cursor-pointer" [class.border-[#009639]]="isFav()" [class.bg-[#009639]]="isFav()" [class.text-white]="isFav()" [class.border-gray-200]="!isFav()" [class.bg-white]="!isFav()" [class.text-[#009639]]="!isFav()" [class.hover:bg-[#eafaf1]]="!isFav()">
+    <button (click)="toggleFav()" class="w-12 h-12 rounded-full border flex items-center justify-center transition shadow-sm shrink-0 cursor-pointer" [class.border-[#009639]]="isFav()" [class.bg-[#009639]]="isFav()" [class.text-white]="isFav()" [class.border-gray-200]="!isFav()" [class.bg-white]="!isFav()" [class.text-[#009639]]="!isFav()" [class.hover:bg-[#eafaf1]]="!isFav()" [attr.aria-label]="isFav() ? 'Eliminar de favoritos' : 'Agregar a favoritos'">
       <svg class="w-5.5 h-5.5" [attr.fill]="isFav() ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
       </svg>

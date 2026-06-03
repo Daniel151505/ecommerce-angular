@@ -23,11 +23,11 @@
 
   @if (items().length === 0) {
     <div class="bg-white py-20 px-4 rounded-3xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
-      <div class="w-20 h-20 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 mb-6 text-gray-300">
+      <div class="w-20 h-20 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 mb-6 text-gray-400">
         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
       </div>
       <h3 class="font-extrabold text-sm text-gray-700 uppercase tracking-wider mb-2">No tienes productos en tu carrito</h3>
-      <p class="text-xs text-gray-400 max-w-sm mb-6">Explora nuestra gran variedad de categorías y agrega productos para iniciar tu compra.</p>
+      <p class="text-xs text-gray-500 max-w-sm mb-6">Explora nuestra gran variedad de categorías y agrega productos para iniciar tu compra.</p>
       <a routerLink="/categoria/todos" class="px-8 py-3 rounded-full bg-[#009639] hover:bg-[#007f30] text-white text-xs font-bold uppercase transition shadow hover:shadow-md">
         Ir al catálogo
       </a>
@@ -39,7 +39,7 @@
         <h4 class="font-extrabold text-base text-gray-800 mb-2">Inkafarma ({{ items().length }})</h4>
 
         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="hidden sm:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50/50 border-b border-gray-100 text-[10px] font-black text-gray-400 uppercase tracking-wider">
+          <div class="hidden sm:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50/50 border-b border-gray-100 text-[10px] font-black text-gray-500 uppercase tracking-wider">
             <div class="col-span-6">Productos</div>
             <div class="col-span-2">Presentación</div>
             <div class="col-span-2">Cantidad</div>
@@ -59,6 +59,7 @@
                     [class.border-gray-200]="!isFavorite(item)"
                     [class.text-gray-300]="!isFavorite(item)"
                     [class.hover:text-red-500]="!isFavorite(item)"
+                    [attr.aria-label]="isFavorite(item) ? 'Quitar de favoritos' : 'Agregar a favoritos'"
                   >
                     <svg class="w-4 h-4" [attr.fill]="isFavorite(item) ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                   </button>
@@ -76,17 +77,18 @@
                     <a [routerLink]="['/producto', item.product.id]" class="font-bold text-xs text-gray-800 hover:text-[#009639] transition line-clamp-2 leading-snug">
                       {{ item.product.name }}
                     </a>
-                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-wide block mt-1">
+                    <span class="text-[9px] font-black text-gray-500 uppercase tracking-wide block mt-1">
                       {{ getPresentationName(item) }}
                     </span>
                   </div>
                 </div>
 
                 <div class="col-span-2 text-xs">
-                  <span class="block sm:hidden text-[10px] font-bold text-gray-400 uppercase mb-1">Presentación:</span>
+                  <span class="block sm:hidden text-[10px] font-bold text-gray-500 uppercase mb-1">Presentación:</span>
                   <select
                     [value]="item.presentation"
                     (change)="onPresentationChange(item, $event)"
+                    aria-label="Seleccionar presentación"
                     class="bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#009639] w-full cursor-pointer"
                   >
                     <option value="pack">{{ item.product.presentation | uppercase }}</option>
@@ -97,11 +99,12 @@
                 </div>
 
                 <div class="col-span-2 text-xs">
-                  <span class="block sm:hidden text-[10px] font-bold text-gray-400 uppercase mb-1">Cantidad:</span>
+                  <span class="block sm:hidden text-[10px] font-bold text-gray-500 uppercase mb-1">Cantidad:</span>
                   <div class="inline-flex items-center bg-gray-50 border border-gray-200 rounded-full p-0.5 shadow-inner">
                     <button
                       (click)="decreaseQty(item)"
                       class="w-7 h-7 rounded-full bg-white hover:bg-red-50 text-gray-500 hover:text-red-600 flex items-center justify-center border border-gray-100 shadow-sm transition"
+                      aria-label="Disminuir cantidad"
                     >
                       @if (item.quantity === 1) {
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -115,6 +118,7 @@
                     <button
                       (click)="increaseQty(item)"
                       class="w-7 h-7 rounded-full bg-white hover:bg-gray-100 text-gray-500 hover:text-[#009639] flex items-center justify-center border border-gray-100 shadow-sm transition"
+                      aria-label="Aumentar cantidad"
                     >
                       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                     </button>
@@ -123,7 +127,7 @@
 
 
                 <div class="col-span-2 text-right relative flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3">
-                  <span class="block sm:hidden text-[10px] font-bold text-gray-400 uppercase">Subtotal:</span>
+                  <span class="block sm:hidden text-[10px] font-bold text-gray-500 uppercase">Subtotal:</span>
                   <div class="flex items-center gap-3">
                     <span class="font-black text-xs text-gray-800">
                       S/ {{ (item.price * item.quantity) | number:'1.2-2' }}

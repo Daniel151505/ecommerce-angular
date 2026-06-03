@@ -9,8 +9,9 @@
           [class.border-blue-500]="activeImage === thumb"
           [class.border-gray-200/60]="activeImage !== thumb"
           [class.hover:border-gray-300]="activeImage !== thumb"
+          aria-label="Seleccionar miniatura de imagen"
         >
-          <img [src]="thumb" class="max-h-full max-w-full object-contain" (error)="onImgError($event)" />
+          <img [src]="thumb" alt="Miniatura del producto" class="max-h-full max-w-full object-contain" (error)="onImgError($event)" />
         </button>
       }
     </div>

@@ -50,7 +50,7 @@
     <div class="tags-row">
       @if (product.ranking !== null && product.ranking < 20) {
         <span class="tag tag-blue">
-            <img src="/assets/tag.svg" class="tag-icon"  />
+            <img src="/assets/tag.svg" class="tag-icon" alt="Tag" />
           Te puede interesar
         </span>
       }
@@ -63,7 +63,7 @@
         </span>
       } @else {
         <span class="tag tag-gray">
-          <img src="/assets/inkafarma-tag.svg" class="tag-icon" />
+          <img src="/assets/inkafarma-tag.svg" alt="Inkafarma" class="tag-icon" />
           Inkafarma
         </span>
       }
@@ -102,7 +102,7 @@
       <button class="btn-agregar" (click)="addToCart($event)">Agregar al carrito</button>
     } @else {
       <div class="qty-stepper" (click)="$event.stopPropagation()">
-        <button class="step-btn" (click)="decreaseQty($event)">
+        <button class="step-btn" (click)="decreaseQty($event)" aria-label="Disminuir cantidad">
           @if (cartQty() === 1) {
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
           } @else {
@@ -110,7 +110,7 @@
           }
         </button>
         <span class="step-qty">{{ cartQty() }}</span>
-        <button class="step-btn" (click)="increaseQty($event)">
+        <button class="step-btn" (click)="increaseQty($event)" aria-label="Aumentar cantidad">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         </button>
       </div>
@@ -120,6 +120,7 @@
       class="btn-heart"
       (click)="toggleFav($event)"
       [class.active]="isFav()"
+      [attr.aria-label]="isFav() ? 'Eliminar de favoritos' : 'Agregar a favoritos'"
       title="Favorito"
     >
       <svg class="w-5 h-5" [attr.fill]="isFav() ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
